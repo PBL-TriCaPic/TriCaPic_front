@@ -1,64 +1,136 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../screens/theme_provider.dart';
+import 'setting1.dart';
+import 'setting2.dart';
+import 'setting3.dart';
+import 'setting4.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //theme: themeProvider.selectedTheme,
+      // theme: lightTheme,
+      // darkTheme: darkTheme,
+      //title: 'Flutter Demo',
+      //home: const AccountScreen(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
+  //const MyHomePage({super.key, required this.title});
+  //final String title;
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  bool _light = true;
 
-  void _incrementCounter() {
+  void _toggleTheme() {
     setState(() {
-      _counter++;
+      _light = !_light;
     });
   }
 
+  final List listTiles = <Widget>[
+    const ListTile(title: Text('item1')),
+    const ListTile(title: Text('item2')),
+    const ListTile(title: Text('item3')),
+    const ListTile(title: Text('item4')),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+    ThemeData selectedTheme = _light ? lightTheme : darkTheme;
+    return MaterialApp(
+        theme: selectedTheme,
+        home: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text('マイページ'),
+              elevation: 3,
+              shadowColor: Colors.black,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            endDrawer: Drawer(
+              child: ListView(
+                children: <Widget>[
+                  DrawerHeader(
+                    child: Container(
+                      height: 100, // 高さを指定
+                      child: const Text(
+                        "設定",
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: const Text("メアド・パスワード"),
+                    trailing: const Icon(Icons.arrow_forward),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Item1Screen(), // 遷移先の画面を指定
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text("起動時デフォルト"),
+                    trailing: const Icon(Icons.arrow_forward),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Item2Screen(), // 遷移先の画面を指定
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text("プライバシー"),
+                    trailing: const Icon(Icons.arrow_forward),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Item3Screen(), // 遷移先の画面を指定
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text("モード"),
+                    trailing: const Icon(Icons.arrow_forward),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Item4Screen(), // 遷移先の画面を指定
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+            body: Column(
+              children: [
+                const Center(
+                    child: Text('Map画面', style: TextStyle(fontSize: 32.0))),
+                Switch(
+                  value: _light,
+                  onChanged: (bool value) {
+                    _toggleTheme();
+                  },
+                ),
+              ],
+            )));
   }
 }

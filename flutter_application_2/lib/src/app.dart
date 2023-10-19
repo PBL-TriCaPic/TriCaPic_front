@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/account.dart';
 import 'screens/Mapd.dart';
-import 'screens/notification.dart';
+import 'screens/search.dart';
 import 'screens/test.dart';
 import 'screens/color_schemes.g.dart';
+import 'screens/theme_provider.dart';
+
+import 'package:flutter_application_2/src/providers/preference_key.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'screens/loading.dart';
+import 'screens/setting4.dart';
+import 'screens/darkmode.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -14,9 +22,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-          //primarySwatch: Colors.grey,
-          ),
       home: const MyStatefulWidget(),
     );
   }
@@ -30,6 +35,14 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  //bool _light = true;
+  //ThemeData selectedTheme = lightTheme;
+  // void _toggleTheme() {
+  //   setState(() {
+  //     _light = !_light;
+  //   });
+  // }
+
   static const _screens = [
     MapScreen(),
     TestScreen(),
@@ -47,15 +60,18 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    //ThemeData selectedTheme = Provider.of<ThemeProvider>(context).selectedTheme;
     return Scaffold(
         body: _screens[_selectedIndex],
         bottomNavigationBar: Theme(
             data: ThemeData(splashFactory: NoSplash.splashFactory),
             child: BottomNavigationBar(
+              //backgroundColor: selectedTheme.primaryColor,
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
-              unselectedItemColor: Colors.grey,
-              selectedItemColor: Color.fromARGB(255, 0, 0, 0),
+              unselectedItemColor: Colors.grey, //Colors.grey,
+              selectedItemColor:
+                  Color.fromARGB(255, 0, 0, 0), //Color.fromARGB(255, 0, 0, 0),
               iconSize: 28,
               selectedIconTheme: const IconThemeData(size: 28),
               items: [
