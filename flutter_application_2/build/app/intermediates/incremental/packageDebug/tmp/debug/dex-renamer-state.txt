@@ -1,0 +1,4 @@
+#Fri Oct 20 01:47:52 JST 2023
+base.0=/Users/mikamitakuhiroshi/TriCaPic_front/flutter_application_2/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
