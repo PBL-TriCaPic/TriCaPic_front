@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/Login.dart';
+import 'Signup.dart';
 
 void main() {
   runApp(MyApp());
@@ -43,10 +44,10 @@ class start extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.5, // 画面幅の50%に設定
               child: ElevatedButton(
                 onPressed: () {
-                  // 以下は「Signup」のボタンを押した時に呼ばれるコードを書く
-                  //Navigator.of(context).push(
-                  //MaterialPageRoute(builder: (context) => Passwordforget()),
-                  //);
+                  //以下は「Signup」のボタンを押した時に呼ばれるコードを書く
+                  Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Signup()),
+                  );
                 },
                 child: Text('Signup'),
               ),
