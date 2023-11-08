@@ -109,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: const Icon(Icons.add),
         ),
         bottomNavigationBar: NavigationBar(
+          backgroundColor: Color.fromARGB(0, 255, 255, 255),
           destinations: const [
             Icon(Icons.list),
             Icon(Icons.home),
